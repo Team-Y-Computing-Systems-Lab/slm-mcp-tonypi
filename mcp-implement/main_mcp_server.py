@@ -13,8 +13,8 @@ import time
 from controller import pick_object 
 
 # Configuration
-ROBOT_BASE_URL = "http://100.71.207.226:9030"
-VISION_API_URL = "http://ycsla.dyn.kennesaw.edu:8000/dino_api"
+ROBOT_BASE_URL = "http://lab-erza.local:9030"
+VISION_API_URL = "http://127.0.0.0:8000/dino_api"
 
 mcp = Server("robot-control-mcp-server")
 

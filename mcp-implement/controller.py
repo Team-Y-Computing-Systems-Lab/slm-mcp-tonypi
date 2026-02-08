@@ -30,9 +30,9 @@ TOLERANCE = 30
 STABILITY_FRAMES = 2
 SLEEP_BETWEEN_ACTIONS = 1 
 
-VISION_URL = "http://ycsla.dyn.kennesaw.edu:8000/dino_api"    # your detect endpoint
-ROBOT_URL = "http://100.71.207.226" # "http://lab-erza.local"
-TONYPI_RPC = "http://100.71.207.226:9030" #  f"http://localhost:9030" # Hiwonder JSON-RPC server
+VISION_URL = "http://127.0.0.0:8000/dino_api"    # your detect endpoint
+ROBOT_URL = "http://lab-erza.local"
+TONYPI_RPC = "http://lab-erza.local:9030" # Hiwonder JSON-RPC server
 HTTP_TIMEOUT = 5 
 
 import requests

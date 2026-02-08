@@ -15,7 +15,7 @@ from test_tools import *
 
 
 # Planner configuration 
-OLLAMA_SERVER = "http://ycsla.dyn.kennesaw.edu:11434"
+OLLAMA_SERVER = "http://127.0.0.0:11434"
 # ollama run smollm2:1.7b
 MODEL_NAME = "qwen3:1.7b" # "deepseek-r1:1.5b" # "smollm2:1.7b" #       
 IS_THINKING = True
