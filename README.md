@@ -43,8 +43,9 @@ python main_mcp_client.py
 # Requirements
 1. Python 3.9+
 2. Ollama with Qwen3 (1.7B) and Qwen3-VL (2B) models installed
-3. Hiwonder Tonypi robot with Raspberry Pi 5
-4. VPN connection between workstation and robot
+3. Grounding Dino tiny 
+4. Hiwonder Tonypi robot with Raspberry Pi 5
+5. VPN connection between workstation and robot
 
 # Citation
 If you use this work, please reference our IEEE SoutheastCon 2026 paper: "From Language to Action: Small Language Model–Driven Humanoid Control with Visual Grounding Under the Model Context Protocol"
