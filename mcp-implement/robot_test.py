@@ -1,7 +1,7 @@
 import requests
 import json
 
-ROBOT_BASE_URL = "http://100.71.207.226:9030"
+ROBOT_BASE_URL = "http://lab-erza.local:9030"
 
 def test_robot_commands():
     commands = [
