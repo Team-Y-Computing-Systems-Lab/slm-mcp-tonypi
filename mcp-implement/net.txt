@@ -1,0 +1,57 @@
+"NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "765c7814c772d77133866b148f047d0fa29e8c1652bece44a0d5450383d9c0a9",
+            "SandboxKey": "/var/run/docker/netns/765c7814c772",
+            "Ports": {
+                "5678/tcp": [
+                    {
+                        "HostIp": "0.0.0.0",
+                        "HostPort": "5678"
+                    },
+                    {
+                        "HostIp": "::",
+                        "HostPort": "5678"
+                    }
+                ]
+            },
+            "HairpinMode": false,
+            "LinkLocalIPv6Address": "",
+            "LinkLocalIPv6PrefixLen": 0,
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "",
+            "Gateway": "",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "",
+            "IPPrefixLen": 0,
+            "IPv6Gateway": "",
+            "MacAddress": "",
+            "Networks": {
+                "mcp-implement_default": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": [
+                        "n8n",
+                        "n8n"
+                    ],
+                    "MacAddress": "4e:d2:ae:13:d6:1e",
+                    "DriverOpts": null,
+                    "GwPriority": 0,
+                    "NetworkID": "5aa52d4d1add6880ef5772836b9d2ed85b11b11abdd659dafa7ec153f322a77f",
+                    "EndpointID": "89ddd8aa748c6efe6fe19ce97ff4a8b0f6daa18652f83fa50382b04a6fd14958",
+                    "Gateway": "172.18.0.1",
+                    "IPAddress": "172.18.0.2",
+                    "IPPrefixLen": 16,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "DNSNames": [
+                        "n8n",
+                        "af2bd6fc5065"
+                    ]
+                }
+            }
+        }
+    }
+]

@@ -1,0 +1,262 @@
+[
+    {
+        "Id": "400243b87142e9e72013fd89b962514b00f32d255aee05c38c4ccbc70d05873d",
+        "Created": "2025-08-20T17:39:15.080747824Z",
+        "Path": "tini",
+        "Args": [
+            "--",
+            "/docker-entrypoint.sh"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 2811687,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2025-08-20T17:39:15.092915681Z",
+            "FinishedAt": "0001-01-01T00:00:00Z"
+        },
+        "Image": "sha256:8947fc40553d76d3e61c5d9cacf4a486d8524d10108d19eb2c9695384ec33b0c",
+        "ResolvConfPath": "/var/lib/docker/containers/400243b87142e9e72013fd89b962514b00f32d255aee05c38c4ccbc70d05873d/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/400243b87142e9e72013fd89b962514b00f32d255aee05c38c4ccbc70d05873d/hostname",
+        "HostsPath": "/var/lib/docker/containers/400243b87142e9e72013fd89b962514b00f32d255aee05c38c4ccbc70d05873d/hosts",
+        "LogPath": "/var/lib/docker/containers/400243b87142e9e72013fd89b962514b00f32d255aee05c38c4ccbc70d05873d/400243b87142e9e72013fd89b962514b00f32d255aee05c38c4ccbc70d05873d-json.log",
+        "Name": "/n8n",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "docker-default",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": [
+                "n8n_data:/home/node/.n8n",
+                "/home/rlwagun/Files/llms/neuro-symbolic-ai/mcp-implement/shared_folder:/home/node/test"
+            ],
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "bridge",
+            "PortBindings": {
+                "5678/tcp": [
+                    {
+                        "HostIp": "",
+                        "HostPort": "5678"
+                    }
+                ]
+            },
+            "RestartPolicy": {
+                "Name": "no",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": true,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "ConsoleSize": [
+                23,
+                151
+            ],
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "private",
+            "Dns": [],
+            "DnsOptions": [],
+            "DnsSearch": [],
+            "ExtraHosts": [
+                "host.docker.internal:host-gateway"
+            ],
+            "GroupAdd": null,
+            "IpcMode": "private",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "",
+            "Privileged": false,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": null,
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 0,
+            "NanoCpus": 0,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": [],
+            "BlkioDeviceReadBps": [],
+            "BlkioDeviceWriteBps": [],
+            "BlkioDeviceReadIOps": [],
+            "BlkioDeviceWriteIOps": [],
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": [],
+            "DeviceCgroupRules": null,
+            "DeviceRequests": null,
+            "MemoryReservation": 0,
+            "MemorySwap": 0,
+            "MemorySwappiness": null,
+            "OomKillDisable": null,
+            "PidsLimit": null,
+            "Ulimits": [],
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0,
+            "MaskedPaths": [
+                "/proc/asound",
+                "/proc/acpi",
+                "/proc/interrupts",
+                "/proc/kcore",
+                "/proc/keys",
+                "/proc/latency_stats",
+                "/proc/timer_list",
+                "/proc/timer_stats",
+                "/proc/sched_debug",
+                "/proc/scsi",
+                "/sys/firmware",
+                "/sys/devices/virtual/powercap"
+            ],
+            "ReadonlyPaths": [
+                "/proc/bus",
+                "/proc/fs",
+                "/proc/irq",
+                "/proc/sys",
+                "/proc/sysrq-trigger"
+            ]
+        },
+        "GraphDriver": {
+            "Data": {
+                "ID": "400243b87142e9e72013fd89b962514b00f32d255aee05c38c4ccbc70d05873d",
+                "LowerDir": "/var/lib/docker/overlay2/e560a8bac1974636b4134bbda71c4109cdbb48d013f213fe5cef5c06d5598d24-init/diff:/var/lib/docker/overlay2/849c656913b23e80f9052efde57189709c42fb50750dfa8ff5f1d7c28257e447/diff:/var/lib/docker/overlay2/f79a6d67c938643c2e7c80ff2a0b00aa84f803a728b917f1ef4cf1f596a5bdf7/diff:/var/lib/docker/overlay2/7f1ec2b9aaf2bde5ed4ab7b8743999d123a1ad12ff0fa004301cdd7ca62e0fb8/diff:/var/lib/docker/overlay2/e3c2b43ff26f15d0649eb9cdc9c6378215ca7145814d4ba1590a009433ba8e18/diff:/var/lib/docker/overlay2/b51d60bd719eb373884f236cc970f925b95188864491fcd56a1ef2ef9e112560/diff:/var/lib/docker/overlay2/891b0e2dee8ca93517b7a7fb7344da755a68ff6b475450e1068ce50cf4f28194/diff:/var/lib/docker/overlay2/6f0ad93329ec0b97fac07aee5f0586ffa7218cbb937e558dad0b4557906dfee1/diff:/var/lib/docker/overlay2/0e943a5313cb587732b3fdc29d81623fece5e72bb5f3e5afd5fa36b06341e65b/diff:/var/lib/docker/overlay2/396b3f03ab5219d1d8dc18c7d49f6156ed30406be93d0b029858a69e098dd7e3/diff:/var/lib/docker/overlay2/1f972a9e2d4f680f4d74ef0a4ee59226f2ff0a794ce37de68f609c522168ccd7/diff:/var/lib/docker/overlay2/bc2c50c0023a79079ace06d35668f98d0ab846d7df6c8f56277bbdbfb60286e3/diff:/var/lib/docker/overlay2/dd349d8c56a2a70b9121fddfcf3d922ab252cef27266a031bf5ad52f607164a4/diff:/var/lib/docker/overlay2/72e25b7e8458e072c16a9505430222e7066472dc2f87c2b2ca781a3bf49c941d/diff:/var/lib/docker/overlay2/808fbfb7dd27761e5345773c6263d1973d38fb31315e146326bab2e1df27b000/diff",
+                "MergedDir": "/var/lib/docker/overlay2/e560a8bac1974636b4134bbda71c4109cdbb48d013f213fe5cef5c06d5598d24/merged",
+                "UpperDir": "/var/lib/docker/overlay2/e560a8bac1974636b4134bbda71c4109cdbb48d013f213fe5cef5c06d5598d24/diff",
+                "WorkDir": "/var/lib/docker/overlay2/e560a8bac1974636b4134bbda71c4109cdbb48d013f213fe5cef5c06d5598d24/work"
+            },
+            "Name": "overlay2"
+        },
+        "Mounts": [
+            {
+                "Type": "volume",
+                "Name": "n8n_data",
+                "Source": "/var/lib/docker/volumes/n8n_data/_data",
+                "Destination": "/home/node/.n8n",
+                "Driver": "local",
+                "Mode": "z",
+                "RW": true,
+                "Propagation": ""
+            },
+            {
+                "Type": "bind",
+                "Source": "/home/rlwagun/Files/llms/neuro-symbolic-ai/mcp-implement/shared_folder",
+                "Destination": "/home/node/test",
+                "Mode": "",
+                "RW": true,
+                "Propagation": "rprivate"
+            }
+        ],
+        "Config": {
+            "Hostname": "400243b87142",
+            "Domainname": "",
+            "User": "node",
+            "AttachStdin": true,
+            "AttachStdout": true,
+            "AttachStderr": true,
+            "ExposedPorts": {
+                "5678/tcp": {}
+            },
+            "Tty": true,
+            "OpenStdin": true,
+            "StdinOnce": true,
+            "Env": [
+                "N8N_SECURE_COOKIE=false",
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "NODE_VERSION=22.17.0",
+                "YARN_VERSION=1.22.22",
+                "NODE_ICU_DATA=/usr/local/lib/node_modules/full-icu",
+                "NODE_ENV=production",
+                "N8N_RELEASE_TYPE=stable",
+                "SHELL=/bin/sh"
+            ],
+            "Cmd": null,
+            "Image": "docker.n8n.io/n8nio/n8n",
+            "Volumes": null,
+            "WorkingDir": "/home/node",
+            "Entrypoint": [
+                "tini",
+                "--",
+                "/docker-entrypoint.sh"
+            ],
+            "OnBuild": null,
+            "Labels": {
+                "org.opencontainers.image.description": "Workflow Automation Tool",
+                "org.opencontainers.image.source": "https://github.com/n8n-io/n8n",
+                "org.opencontainers.image.title": "n8n",
+                "org.opencontainers.image.url": "https://n8n.io",
+                "org.opencontainers.image.version": "1.106.3"
+            }
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "3e0ae4ac6b492a9242539fbd3aca63abcc31ffd444f968966f0c5fdf75172936",
+            "SandboxKey": "/var/run/docker/netns/3e0ae4ac6b49",
+            "Ports": {
+                "5678/tcp": [
+                    {
+                        "HostIp": "0.0.0.0",
+                        "HostPort": "5678"
+                    },
+                    {
+                        "HostIp": "::",
+                        "HostPort": "5678"
+                    }
+                ]
+            },
+            "HairpinMode": false,
+            "LinkLocalIPv6Address": "",
+            "LinkLocalIPv6PrefixLen": 0,
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "4adc1cc10a71999f55475b5a85c4780d1cc7bdff066c307404f8282897202447",
+            "Gateway": "172.17.0.1",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "172.17.0.2",
+            "IPPrefixLen": 16,
+            "IPv6Gateway": "",
+            "MacAddress": "fe:63:f7:9a:ad:5f",
+            "Networks": {
+                "bridge": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": null,
+                    "MacAddress": "fe:63:f7:9a:ad:5f",
+                    "DriverOpts": null,
+                    "GwPriority": 0,
+                    "NetworkID": "1e3aa1b9335727605b39771c27bb3a5c8ac2aafac589186186d763a19ffb68b6",
+                    "EndpointID": "4adc1cc10a71999f55475b5a85c4780d1cc7bdff066c307404f8282897202447",
+                    "Gateway": "172.17.0.1",
+                    "IPAddress": "172.17.0.2",
+                    "IPPrefixLen": 16,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "DNSNames": null
+                }
+            }
+        }
+    }
+]

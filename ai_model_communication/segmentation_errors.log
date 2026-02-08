@@ -1,0 +1,36 @@
+2025-07-14 14:09:38,520 - INFO - Starting grounded segmentation demo
+2025-07-14 14:09:38,520 - INFO - Loading image from: ./test.png
+2025-07-14 14:09:38,524 - INFO - Running grounded segmentation...
+2025-07-14 14:09:38,524 - INFO - PyTorch version: 2.7.1+cu128
+2025-07-14 14:09:38,538 - INFO - CUDA available: True
+2025-07-14 14:09:38,553 - INFO - CUDA device count: 1
+2025-07-14 14:09:38,556 - INFO - Current CUDA device: 0
+2025-07-14 14:09:38,556 - INFO - Device name: NVIDIA RTX 6000 Ada Generation
+2025-07-14 14:09:38,556 - INFO - Memory - Total: 128651.09MB, Available: 117019.15MB
+2025-07-14 14:09:38,556 - INFO - CPU cores: 32
+2025-07-14 14:09:38,556 - INFO - CPU usage: 8.2%
+2025-07-14 14:09:38,556 - INFO - Starting detection...
+2025-07-14 14:09:38,557 - INFO - Using device: cuda
+2025-07-14 14:09:38,557 - INFO - Loading detector model: IDEA-Research/grounding-dino-tiny
+2025-07-14 14:09:39,796 - INFO - Detecting labels: ['red ball.', 'blue square.'] with threshold 0.3
+2025-07-14 14:09:40,517 - INFO - Detection completed. Found 3 objects
+2025-07-14 14:09:40,521 - INFO - Saving results to: cute_cats1.png
+2025-07-14 14:09:52,939 - INFO - First detection result: DetectionResult(score=0.7476790547370911, label='red ball.', box=BoundingBox(xmin=27, ymin=123, xmax=50, ymax=146), mask=None)
+2025-07-14 14:10:02,035 - INFO - Starting grounded segmentation demo
+2025-07-14 14:10:02,035 - INFO - Loading image from: ./test.png
+2025-07-14 14:10:02,039 - INFO - Running grounded segmentation...
+2025-07-14 14:10:02,039 - INFO - PyTorch version: 2.7.1+cu128
+2025-07-14 14:10:02,053 - INFO - CUDA available: True
+2025-07-14 14:10:02,068 - INFO - CUDA device count: 1
+2025-07-14 14:10:02,071 - INFO - Current CUDA device: 0
+2025-07-14 14:10:02,071 - INFO - Device name: NVIDIA RTX 6000 Ada Generation
+2025-07-14 14:10:02,071 - INFO - Memory - Total: 128651.09MB, Available: 116948.48MB
+2025-07-14 14:10:02,071 - INFO - CPU cores: 32
+2025-07-14 14:10:02,071 - INFO - CPU usage: 8.3%
+2025-07-14 14:10:02,071 - INFO - Starting detection...
+2025-07-14 14:10:02,071 - INFO - Using device: cuda
+2025-07-14 14:10:02,071 - INFO - Loading detector model: IDEA-Research/grounding-dino-tiny
+2025-07-14 14:10:03,360 - INFO - Detecting labels: ['red ball.', 'blue square.'] with threshold 0.3
+2025-07-14 14:10:04,087 - INFO - Detection completed. Found 3 objects
+2025-07-14 14:10:04,092 - INFO - Saving results to: cute_cats1.png
+2025-07-14 14:10:26,943 - INFO - First detection result: DetectionResult(score=0.7476790547370911, label='red ball.', box=BoundingBox(xmin=27, ymin=123, xmax=50, ymax=146), mask=None)
