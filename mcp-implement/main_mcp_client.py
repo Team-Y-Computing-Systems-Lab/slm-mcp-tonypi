@@ -15,7 +15,7 @@ from test_tools import *
 
 
 # Planner configuration 
-OLLAMA_SERVER = "http://127.0.0.0:11434"
+OLLAMA_SERVER = "http://100.67.254.11:11434"
 # ollama run smollm2:1.7b
 MODEL_NAME = "qwen3:1.7b" # "deepseek-r1:1.5b" # "smollm2:1.7b" #       
 IS_THINKING = True
@@ -238,7 +238,8 @@ class MCPClient:
                     for tool in tools_response.tools:
                         print(f"  - {tool.name}: {tool.description}")
 
-                    await self.interactive_chat()
+                    # await self.interactive_chat()
+                    await self.automated_chat("task_b")
                     # return True
 
         except Exception as e:
@@ -496,13 +497,13 @@ class MCPClient:
                 
                 # continue
 
-                # Step 2: execute the plan 
-                print("Executing plan...")
-                execution_result = await self.execute_plan(plan_data, user_input)
+                # # Step 2: execute the plan 
+                # print("Executing plan...")
+                # execution_result = await self.execute_plan(plan_data, user_input)
 
-                # Step 3: display results
-                print(f"\nExecution Results:")
-                print(execution_result)
+                # # Step 3: display results
+                # print(f"\nExecution Results:")
+                # print(execution_result)
 
             except KeyboardInterrupt:
                 print("\nSession interrupted")
@@ -510,83 +511,83 @@ class MCPClient:
             except Exception as e:
                 print(f"Error: {str(e)}")
     
-async def automated_chat(self, task_category = "task_a"):
-        """Main interactive chat loop"""
-        print("\n" + "=" * 40)
-        print("ROBOT PLANNING AND CONTROL INTERFACE")
-        print("=" * 40)
-        print("Give commands to the robot. The system will:")
-        print("1. Plan the sequence of tools needed")
-        print("2. Execute each tool in order")
-        print("3. Report the execution results")
-        print("Type 'quit' to exit")
-        print("=" * 40)
+    async def automated_chat(self, task_category = "task_a"):
+            """Main interactive chat loop"""
+            print("\n" + "=" * 40)
+            print("ROBOT PLANNING AND CONTROL INTERFACE")
+            print("=" * 40)
+            print("Give commands to the robot. The system will:")
+            print("1. Plan the sequence of tools needed")
+            print("2. Execute each tool in order")
+            print("3. Report the execution results")
+            print("Type 'quit' to exit")
+            print("=" * 40)
 
-        task = {
-            "task_a":[
-                "Wave.",
-                "Move right.",
-                "Move left.",
-                "Move forward one step.",    
-            ],
-            "task_b": [
-                "Move 3 steps forward and move right.",
-                "Move left twice.",
-                "Move forward 2 steps, move right 2 steps, then wave.",
-                "Move backward one step, then move forward one step.",
-            ],
-            "task_c": [
-                "Grab the pen.",
-                "Pick up the bottle.",
-                "Pick up the cup.",
-                "Fetch the red block.",
-            ],
-            "task_d": [  
-                "Grab the pen, then move right.",
-                "Grab the bottle, move forward one step, then put it down.",
-                "Pick up the cup, move left twice, then put it down.",
-                "Grab the red block, wave, then put it down.",
-            ]
-        }
-        task_a = task[task_category]
-        task_count = 0 
-        total_prompts = len(task_a) * 6 
-        while True and (task_count != total_prompts):
-            try:
-                user_input = task_a[task_count % len(task_a)] # input("\nYour command: ").strip()
-                task_count += 1 
-                if user_input.lower() in ["quit", "exit", "q"]:
+            task = {
+                "task_a":[
+                    "Wave.",
+                    "Move right.",
+                    "Move left.",
+                    "Move forward one step.",    
+                ],
+                "task_b": [
+                    "Move 3 steps forward and move right.",
+                    "Move left twice.",
+                    "Move forward 2 steps, move right 2 steps, then wave.",
+                    "Move backward one step, then move forward one step.",
+                ],
+                "task_c": [
+                    "Grab the pen.",
+                    "Pick up the bottle.",
+                    "Pick up the cup.",
+                    "Fetch the red block.",
+                ],
+                "task_d": [  
+                    "Grab the pen, then move right.",
+                    "Grab the bottle, move forward one step, then put it down.",
+                    "Pick up the cup, move left twice, then put it down.",
+                    "Grab the red block, wave, then put it down.",
+                ]
+            }
+            task_a = task[task_category]
+            task_count = 0 
+            total_prompts = len(task_a) * 6 
+            while True and (task_count != total_prompts):
+                try:
+                    user_input = task_a[task_count % len(task_a)] # input("\nYour command: ").strip()
+                    task_count += 1 
+                    if user_input.lower() in ["quit", "exit", "q"]:
+                        break
+
+                    if not user_input:
+                        continue
+
+                    print(f"\nProcessing: '{user_input}'")
+
+                    # Step 1: get plan from Ollama
+                    print("Getting execution plan from Ollama...")
+                    plan_data = self.get_ollama_plan(user_input)
+                    
+                    
+                    print(plan_data)
+                    # verify_compliance(plan_data, list_of_all_actions, ) 
+
+                    
+                    # continue
+
+                    # # Step 2: execute the plan 
+                    # print("Executing plan...")
+                    # execution_result = await self.execute_plan(plan_data, user_input)
+
+                    # # Step 3: display results
+                    # print(f"\nExecution Results:")
+                    # print(execution_result)
+
+                except KeyboardInterrupt:
+                    print("\nSession interrupted")
                     break
-
-                if not user_input:
-                    continue
-
-                print(f"\nProcessing: '{user_input}'")
-
-                # Step 1: get plan from Ollama
-                print("Getting execution plan from Ollama...")
-                plan_data = self.get_ollama_plan(user_input)
-                
-                
-                print(plan_data)
-                # verify_compliance(plan_data, list_of_all_actions, ) 
-
-                
-                # continue
-
-                # Step 2: execute the plan 
-                print("Executing plan...")
-                execution_result = await self.execute_plan(plan_data, user_input)
-
-                # Step 3: display results
-                print(f"\nExecution Results:")
-                print(execution_result)
-
-            except KeyboardInterrupt:
-                print("\nSession interrupted")
-                break
-            except Exception as e:
-                print(f"Error: {str(e)}")
+                except Exception as e:
+                    print(f"Error: {str(e)}")
 
 async def main():
     print("Starting MCP Client...")
