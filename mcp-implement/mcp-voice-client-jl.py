@@ -604,13 +604,13 @@ class MCPClient:
                     
                     # continue
 
-                    # # Step 2: execute the plan 
-                    # print("Executing plan...")
-                    # execution_result = await self.execute_plan(plan_data, user_input)
+                    # Step 2: execute the plan 
+                    print("Executing plan...")
+                    execution_result = await self.execute_plan(plan_data, user_input)
 
-                    # # Step 3: display results
-                    # print(f"\nExecution Results:")
-                    # print(execution_result)
+                    # Step 3: display results
+                    print(f"\nExecution Results:")
+                    print(execution_result)
 
                 except KeyboardInterrupt:
                     print("\nSession interrupted")
