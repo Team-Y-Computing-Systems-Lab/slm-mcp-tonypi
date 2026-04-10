@@ -8,17 +8,19 @@ warnings.filterwarnings("ignore", category=UserWarning, module="google.protobuf"
 import asyncio
 import json
 import requests
+import sys
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
 import re
+import torch
+from transformers import AutoModelForCausalLM, AutoTokenizer
 from test_tools import * 
 
 
 # Planner configuration 
-OLLAMA_SERVER = "http://127.0.0.0:11434"
-# ollama run smollm2:1.7b
-MODEL_NAME = "qwen3:1.7b" # "deepseek-r1:1.5b" # "smollm2:1.7b" #       
+MODEL_NAME = "Qwen/Qwen2.5-1.5B-Instruct"
 IS_THINKING = True
+MAX_NEW_TOKENS = 512
 SYS_PROMPT = """
 You are a robot with a physical body: a camera (head), legs, and hands. Your body is bipedal. You can move the robot and look around the environment, and you have the following tools available to control it.
 
@@ -215,12 +217,61 @@ class MCPClient:
         self.write = None
         
         self.previous_plan = "None."
+        self.tokenizer = None
+        self.model = None
+
+    def load_planner(self):
+        """Load the local Hugging Face planner once per session."""
+        if self.model is not None and self.tokenizer is not None:
+            return
+
+        print(f"Loading local planner model: {MODEL_NAME}")
+        self.tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
+        model_kwargs = {"device_map": "auto"}
+
+        if torch.cuda.is_available():
+            model_kwargs["torch_dtype"] = torch.float16
+        elif hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
+            model_kwargs["torch_dtype"] = torch.float16
+        else:
+            model_kwargs["torch_dtype"] = torch.float32
+
+        self.model = AutoModelForCausalLM.from_pretrained(
+            MODEL_NAME,
+            **model_kwargs,
+        )
+
+    def generate_with_model(
+        self,
+        messages: list[dict[str, str]],
+        max_new_tokens: int = MAX_NEW_TOKENS,
+    ) -> str:
+        """Run local inference with the chat template and return plain text."""
+        self.load_planner()
+        prompt = self.tokenizer.apply_chat_template(
+            messages,
+            tokenize=False,
+            add_generation_prompt=True,
+        )
+        inputs = self.tokenizer(prompt, return_tensors="pt")
+        model_device = next(self.model.parameters()).device
+        inputs = {key: value.to(model_device) for key, value in inputs.items()}
+
+        outputs = self.model.generate(
+            **inputs,
+            max_new_tokens=max_new_tokens,
+            do_sample=False,
+            temperature=None,
+            pad_token_id=self.tokenizer.eos_token_id,
+        )
+        generated_tokens = outputs[0][inputs["input_ids"].shape[1]:]
+        return self.tokenizer.decode(generated_tokens, skip_special_tokens=True).strip()
 
     async def run(self):
         """Connect to MCP server"""
         try:
             server_params = StdioServerParameters(
-                command="python", args=["main_mcp_server.py"]
+                command=sys.executable, args=["main_mcp_server.py"]
             )
             print("Connecting to robot MCP server...")
 
@@ -246,62 +297,35 @@ class MCPClient:
             # return False
 
     def get_ollama_plan(self, user_input: str):
-        """Get planning and tools sequence from qwen3:1.7b"""
-        # repetition_patterns = [
-        #     (r'twice', 2),
-        #     (r'thrice', 3),
-        #     (r'three times', 3),
-        #     (r'four times', 4),
-        #     (r'five times', 5),
-        #     (r'(\d+)\s*times', lambda m: int(m.group(1))),
-        #     (r'(\d+)\s*', lambda m: int(m.group(1))),
-        #     (r'^(\d+)\s*', lambda m: int(m.group(1)))
-        # ]
-        # repetitions = 1
-        # clean_input = user_input
-
-        # for pattern, rep in repetition_patterns:
-        #     match = re.search(pattern, user_input.lower())
-        #     if match:
-        #         if callable(rep):
-        #             repetitions = rep(match)
-        #         else:
-        #             repetitions = rep
-
-        url = f"{OLLAMA_SERVER}/api/chat"
-        payload = {
-            "model": MODEL_NAME,
-            "messages": [
+        """Get planning and tools sequence from the local Hugging Face model."""
+        try:
+            print("Running local planner inference...")
+            messages = [
                 {"role": "system", "content": SYS_PROMPT},
                 {"role": "user", "content": user_input},
-                # {"role": "user", "content": previous_action(self.previous_plan) + "\ncurrent input:" + user_input},
-            ],
-            "stream": False,
-            "format": "json",
-        }
+            ]
+            print(messages[-1])
+            content = self.generate_with_model(messages)
 
-        try:
-            print("Sending request to Ollama...")
-            response = requests.post(url, json=payload, timeout=30)
-            print(payload['messages'][-1])
-            response.raise_for_status()
-            result = response.json()
-            content = result.get("message", {}).get("content", "{}")
-            # print(f"Raw content: {content}")
-
-            # Parse JSON response
             try:
                 plan_data = json.loads(content)
-                self.previous_plan = plan_data # rl  mem 
-                # what happens if there are repeated tasks? create syntax or update system prompt
+                self.previous_plan = plan_data
                 return plan_data
-            except json.JSONDecodeError as e:
-                print("JSON parsing error: {e}")
-                print("Raw Ollamacontent:", repr(content))
+            except json.JSONDecodeError:
+                json_match = re.search(r"\{.*\}", content, flags=re.DOTALL)
+                if json_match:
+                    try:
+                        plan_data = json.loads(json_match.group(0))
+                        self.previous_plan = plan_data
+                        return plan_data
+                    except json.JSONDecodeError:
+                        pass
+                print("JSON parsing error while decoding planner output")
+                print("Raw planner content:", repr(content))
                 return {"response": "Planning failed", "plan": []}
 
         except Exception as e:
-            print(f"Ollama request failed: {e}")
+            print(f"Local planner request failed: {e}")
             return {"response": "Planning failed", "plan": []}
 
     async def check_and_replan(
@@ -437,8 +461,7 @@ class MCPClient:
         return "\n".join(execution_log)
 
     async def get_final_analysis(self, user_input: str, execution_summary: str):
-        """Get final analysis from LLM about the execution results"""
-        url = f"{OLLAMA_SERVER}/api/chat"
+        """Get final analysis from the local Hugging Face model."""
         prompt = f"""
         User asked: "{user_input}"
         The robot executed this plan: {execution_summary}
@@ -446,19 +469,15 @@ class MCPClient:
         Example: 
         Final analysis: The action 'wave' was executed successfully, and the user's request to wave was completed.
         """
-        payload = {
-            "model": MODEL_NAME,
-            "messages": [{"role": "user", "content": prompt}],
-            "stream": False,
-        }
         try:
-            response = requests.post(url, json=payload, timeout=30)
-            result = response.json()
-            content = result.get("message", {}).get("content", "No analysis available")
+            content = self.generate_with_model(
+                [{"role": "user", "content": prompt}],
+                max_new_tokens=192,
+            )
             filtered_analysis = re.sub(
                 r"<think>.*?</think>", "", content, flags=re.DOTALL
             ).strip()
-            return filtered_analysis
+            return filtered_analysis or "No analysis available"
         except Exception as e:
             return f"Analysis unavailable: {str(e)}"
 
@@ -485,8 +504,8 @@ class MCPClient:
 
                 print(f"\nProcessing: '{user_input}'")
 
-                # Step 1: get plan from Ollama
-                print("Getting execution plan from Ollama...")
+                # Step 1: get plan from local model
+                print("Getting execution plan from local Hugging Face model...")
                 plan_data = self.get_ollama_plan(user_input)
                 
                 
@@ -563,8 +582,8 @@ async def automated_chat(self, task_category = "task_a"):
 
                 print(f"\nProcessing: '{user_input}'")
 
-                # Step 1: get plan from Ollama
-                print("Getting execution plan from Ollama...")
+                # Step 1: get plan from local model
+                print("Getting execution plan from local Hugging Face model...")
                 plan_data = self.get_ollama_plan(user_input)
                 
                 

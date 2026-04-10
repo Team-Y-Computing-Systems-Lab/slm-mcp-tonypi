@@ -1,0 +1,34 @@
+# Core MCP client/server
+mcp
+requests
+
+# Local planner inference
+torch
+transformers
+accelerate
+sentencepiece
+
+# Vision and image handling
+opencv-python
+numpy
+pillow
+matplotlib
+plotly
+psutil
+
+# FastAPI vision service
+fastapi
+uvicorn
+pydantic
+python-multipart
+httpx
+httpx-sse
+sse-starlette
+
+# Analysis utilities
+pandas
+
+# Experimental scripts
+langchain
+langchain-core
+langchain-ollama

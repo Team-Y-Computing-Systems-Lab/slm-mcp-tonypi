@@ -13,8 +13,8 @@ import time
 from controller import pick_object 
 
 # Configuration
-ROBOT_BASE_URL = "http://lab-erza.local:9030"
-VISION_API_URL = "http://127.0.0.0:8000/dino_api"
+ROBOT_BASE_URL = "http://100.106.218.2:9030"
+VISION_API_URL = "http://127.0.0.1:8000/dino_api"
 
 mcp = Server("robot-control-mcp-server")
 
@@ -85,7 +85,7 @@ def summarize_scene():
     """VLM integration for scene description"""
     try:
         print("[VLM] Capturing image from robot camera...")
-        camera_url = "http://lab-erza:8080/"
+        camera_url = "http://100.106.218.2:8080/"
         camera = cv2.VideoCapture(camera_url)
         for attempt in range(3):    # retry 3 times with timeout
             success, image = camera.read()
